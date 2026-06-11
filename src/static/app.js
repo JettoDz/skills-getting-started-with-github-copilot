@@ -129,8 +129,8 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const activity = removeButton.dataset.activity;
-    const email = removeButton.dataset.email;
+    const activity = decodeURIComponent(removeButton.dataset.activity);
+    const email = decodeURIComponent(removeButton.dataset.email);
 
     try {
       const response = await fetch(

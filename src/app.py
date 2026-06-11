@@ -38,6 +38,42 @@ activities = {
         "schedule": "Mondays, Wednesdays, Fridays, 2:00 PM - 3:00 PM",
         "max_participants": 30,
         "participants": ["john@mergington.edu", "olivia@mergington.edu"]
+    },
+    "Basketball Team": {
+        "description": "Competitive basketball team for intramural and regional tournaments",
+        "schedule": "Mondays and Wednesdays, 4:00 PM - 5:30 PM",
+        "max_participants": 15,
+        "participants": []
+    },
+    "Tennis Club": {
+        "description": "Learn and practice tennis skills on the school courts",
+        "schedule": "Tuesdays and Thursdays, 4:30 PM - 5:30 PM",
+        "max_participants": 10,
+        "participants": []
+    },
+    "Art Studio": {
+        "description": "Explore painting, drawing, and other visual art forms",
+        "schedule": "Wednesdays, 3:30 PM - 5:00 PM",
+        "max_participants": 18,
+        "participants": []
+    },
+    "Drama Club": {
+        "description": "Participate in theatrical productions and acting workshops",
+        "schedule": "Mondays and Fridays, 3:45 PM - 5:15 PM",
+        "max_participants": 25,
+        "participants": []
+    },
+    "Debate Team": {
+        "description": "Develop argumentation and public speaking skills through competitive debate",
+        "schedule": "Tuesdays, 3:30 PM - 4:45 PM",
+        "max_participants": 16,
+        "participants": []
+    },
+    "Science Club": {
+        "description": "Conduct experiments and explore advanced scientific concepts",
+        "schedule": "Thursdays, 3:30 PM - 5:00 PM",
+        "max_participants": 22,
+        "participants": []
     }
 }
 
@@ -59,6 +95,10 @@ def signup_for_activity(activity_name: str, email: str):
     if activity_name not in activities:
         raise HTTPException(status_code=404, detail="Activity not found")
 
+    # Validate student is not already signed up
+    if email in activities[activity_name]["participants"]:
+        raise HTTPException(status_code=400, detail="Student already signed up")
+    
     # Get the specific activity
     activity = activities[activity_name]
 

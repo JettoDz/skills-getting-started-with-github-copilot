@@ -43,16 +43,28 @@ document.addEventListener("DOMContentLoaded", () => {
                 ? `<ul class="participants-list">
                     ${details.participants
                       .map(
-                        (participant) => `
+                        (participant) => {
+                          const encodedActivity = encodeURIComponent(name);
+                          const encodedEmail = encodeURIComponent(participant);
+                          const safeParticipant = escapeHtml(participant);
+                          const safeActivity = escapeHtml(name);
+
+                          return `
                           <li class="participant-item">
-                            <span class="participant-email">${participant}</span>
+                            <span class="participant-email">${safeParticipant}</span>
                             <button
                               type="button"
                               class="participant-remove-btn"
-                              data-activity="${name}"
-                              data-email="${participant}"
-                              aria-label="Remove ${participant} from ${name}"
+                              data-activity="${encodedActivity}"
+                              data-email="${encodedEmail}"
+                              aria-label="Remove ${safeParticipant} from ${safeActivity}"
                               title="Remove participant"
+                            >
+                              ×
+                            </button>
+                          </li>
+                        `;
+                        }
                             >
                               ×
                             </button>
